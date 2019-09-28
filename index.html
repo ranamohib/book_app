@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book App</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+    *{
+        box-sizing: border-box;
+    }
+    html,body{
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+    .main{
+        height: 100vh;
+        background: #5f2c82;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #49a09d, #5f2c82);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+
+.container {
+    width: 80vw;
+    min-height: 20rem;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);   
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    overflow: hidden;
+    transform: translate(-50%,-50%);
+    top:50vh;
+    left: 50%;
+}
+
+.container:before {
+    content: "";
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    filter: blur(10px);
+    margin: -20px;
+}
+.nav{
+    height: 50px;
+    margin-bottom: 30px;
+    border: 1px solid #a2a2a2;
+	background-color: #f4f4f4;
+	-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+}
+.ninefive{
+    width: 95%;
+    margin: 10px auto 0 auto;
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 0.25fr 0.25fr;
+    
+}
+.nav span{
+	color: #34495e;
+    
+}
+
+.book{
+    padding-top: 5px;
+    border-top: 3px solid rgba(209, 209, 209, 0.808); 
+    width: 95%;
+    margin: 10px auto 0  auto;
+    display: grid;
+    height: 30px;
+    grid-template-columns: 40px 1fr 1fr 0.25fr 0.25fr;
+    opacity: 0.4;
+}
+
+
+.p{
+    
+    text-align: center;
+}
+.form button{
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 1.25em;
+    transition: all 0.3s ease-in-out;
+}
+.form button:hover{
+    transform: scale(1.25);
+}
+.form input{
+    border: none;
+    border-radius: 2px;
+    /* animation: ani 1s ease-in-out 1s infinite; */
+}
+
+@keyframes ani{
+  0%{
+    opacity: 0;
+    
+  }
+  100%{
+      opacity: 1;
+      transform: translate(0);
+  }  
+}
+.resize{
+    width: 200px;
+
+}
+.onclick{
+    transform: translate(0);
+    opacity: 1;
+}
+/* Switch 1 Specific Styles Start */
+
+
+input[type="checkbox"].switch_1{
+
+-webkit-appearance: none;
+   -moz-appearance: none;
+        appearance: none;
+width: 3.5em;
+height: 1.5em;
+background: #ddd;
+border-radius: 3em;
+
+cursor: pointer;
+outline: none;
+-webkit-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked{
+background: #0ebeff;
+}
+
+input[type="checkbox"].switch_1:after{
+position: absolute;
+content: "";
+width: 1.5em;
+height: 1.5em;
+border-radius: 50%;
+background: #fff;
+-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+        box-shadow: 0 0 .25em rgba(0,0,0,.3);
+-webkit-transform: scale(.7);
+        transform: scale(.7);
+left: 0;
+-webkit-transition: all .2s ease-in-out;
+transition: all .2s ease-in-out;
+}
+
+input[type="checkbox"].switch_1:checked:after{
+left: calc(100% - 1.5em);
+}
+
+/* Switch 1 Specific Style End */
+.switch_1{
+transform:scale(0.5);
+}
+
+    </style>
+</head>
+<body>
+<div class="main">
+
+
+  <div class="container">
+
+        <div class="nav ">
+             <div class="ninefive">
+                <span class="p">#</span>   
+                <span style="margin-left: 15px;">TITLE</span>
+                <span>AUTHOR</span>
+                <span class="pages">PAGES</span>
+                <span class="read">READ</span>
+            </div> 
+        </div>
+        <div class="books">
+        </div>
+        <form>
+          <div class="book form">
+               <button onclick="addBook()" class="p">+</button>
+                <input id="title" class="resize" style="margin-left: 15px;" type="text">
+                <input id="author" class="resize" type="text">
+                <input id="pages" style="width: 50px;" type="number">
+                <input id="read" type="checkbox" class="switch_1">
+            
+            </div>
+        </form>    
+  </div>
+</div>   
+</body>
+
+<script>
+let library = [];
+library.push(new Book("The Hobbit","J.R.R Tolkein",295,false));
+
+library.push(new Book("Words of Radiance","Brandon Sanderson",1087,true));
+library.push(new Book("The Way of Kings","Brandon Sanderson",1007,true));
+
+
+function addBook(){
+    title = document.querySelector("#title").value;
+    author = document.querySelector("#author").value;
+    pages = +document.querySelector("#pages").value;
+    
+    read = document.querySelector("#read").value;
+    library.push(new Book(title,author,pages,read));
+    render();
+
+}
+function Book(title,author,pages,read){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.info = function(){
+        return `${title} by ${author}, ${pages} pages, ${read?"read":"not read yet"}.`
+    }
+
+}
+function deleteBook(e){
+  console.log(e.target.parentElement.parentElement)
+}
+function render(){
+    let main = document.querySelector(".books");
+    let html = ""
+    let i = 1;
+
+    for (let obj of  library){
+        
+        html += `<div class="book">
+                  <span class="p">${i}</span>   
+                  <span style="margin-left: 15px;">${obj.title}</span>
+                  <span>${obj.author}</span>
+                  <span class="pages">${obj.pages}</span>
+                  <div>
+                    <input type="checkbox" class="switch_1"><span onclick="deleteBook(e)" style="font-weight:bold; margin-left: 20px;cursor: pointer">-</span>
+                  </div>
+                 </div>`
+
+      main.innerHTML = html;
+      i++;
+    }
+    
+}
+
+function animation(){
+    let input = document.querySelector("input");
+    input.classList.toggle("onclick");
+}
+render();
+</script>
+</html>
